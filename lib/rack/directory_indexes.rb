@@ -15,7 +15,7 @@ module Rack
     def call(env)
       req_path = env['PATH_INFO']
       if req_path[-1,1] == "/"
-        @directory_indexes.seach do |index|
+        @directory_indexes.each do |index|
           new_status , new_headers, new_body = res =  @app.call(env.dup.tap{|e| e['PATH_INFO'] = F.join(e['PATH_INFO'], index) })
           if new_status == 200
             new_headers['Content-Type'] = "text/html"
